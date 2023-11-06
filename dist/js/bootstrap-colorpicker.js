@@ -1033,11 +1033,11 @@
         var icn = this.component.find('i').eq(0);
         if (icn.length > 0) {
           icn.css({
-            'backgroundColor': color.toString(true, 'rbga')
+            'backgroundColor': color.toString(true, 'rgba')
           });
         } else {
           this.component.css({
-            'backgroundColor': color.toString(true, 'rbga')
+            'backgroundColor': color.toString(true, 'rgba')
           });
         }
       }
