@@ -48,7 +48,7 @@ var Colorpicker = function(element, options) {
     $picker.addClass('colorpicker-horizontal');
   }
   if (
-    (['rgba', 'hsla', 'alias', 'hexe'].indexOf(this.format) !== -1) ||
+    (['rgba', 'hsla', 'alias', 'hex'].indexOf(this.format) !== -1) ||
     this.options.format === false ||
     this.getValue() === 'transparent'
   ) {
@@ -456,18 +456,8 @@ Colorpicker.prototype = {
       (this.currentSlider.callTop === 'setAlpha' ||
         this.currentSlider.callLeft === 'setAlpha')
     ) {
-
-      // Converting from hex / rgb to rgba
-      if (this.color.value.a !== 1) {
-        this.format = 'rgba';
-        this.color.origFormat = 'rgba';
-      }
-
-      // Converting from rgba to hex
-      else {
-        this.format = 'hex';
-        this.color.origFormat = 'hex';
-      }
+      this.format = 'hex';
+      this.color.origFormat = 'hex';
     }
     this.update(true);
 

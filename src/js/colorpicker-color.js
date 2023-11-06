@@ -653,7 +653,7 @@ Color.prototype = {
         parseInt(execResult[1], 16),
         parseInt(execResult[2], 16),
         parseInt(execResult[3], 16),
-        execResult.length === 5 ? (parseInt(execResult[4], 16) / 255) : 1
+        execResult.length === 5 ? parseInt(execResult[4], 16) : 1
       ];
     }
   }],
