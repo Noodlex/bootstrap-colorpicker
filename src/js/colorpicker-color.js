@@ -15,13 +15,13 @@ if (typeof module === "object" && typeof module.exports === "object") {
  * @param {Boolean} [hexNumberSignPrefix]
  * @constructor
  */
-var Color = function (
+var Color = function(
   val, predefinedColors, fallbackColor, fallbackFormat, hexNumberSignPrefix) {
   this.fallbackValue = fallbackColor ?
     (
       (typeof fallbackColor === 'string') ?
-        this.parse(fallbackColor) :
-        fallbackColor
+      this.parse(fallbackColor) :
+      fallbackColor
     ) :
     null;
 
@@ -208,16 +208,16 @@ Color.prototype = {
   /**
    * @return {Object}
    */
-  getValue: function () {
+  getValue: function() {
     return this.value;
   },
   /**
    * @param {Object} val
    */
-  setValue: function (val) {
+  setValue: function(val) {
     this.value = val;
   },
-  _sanitizeNumber: function (val) {
+  _sanitizeNumber: function(val) {
     if (typeof val === 'number') {
       return val;
     }
@@ -235,14 +235,14 @@ Color.prototype = {
     }
     return 1;
   },
-  isTransparent: function (strVal) {
+  isTransparent: function(strVal) {
     if (!strVal || !(typeof strVal === 'string' || strVal instanceof String)) {
       return false;
     }
     strVal = strVal.toLowerCase().trim();
     return (strVal === 'transparent') || (strVal.match(/#?00000000/)) || (strVal.match(/(rgba|hsla)\(0,0,0,0?\.?0\)/));
   },
-  rgbaIsTransparent: function (rgba) {
+  rgbaIsTransparent: function(rgba) {
     return ((rgba.r === 0) && (rgba.g === 0) && (rgba.b === 0) && (rgba.a === 0));
   },
   // parse a string to HSB
@@ -251,7 +251,7 @@ Color.prototype = {
    * @param {String} strVal
    * @returns {boolean} Returns true if it could be parsed, false otherwise
    */
-  setColor: function (strVal) {
+  setColor: function(strVal) {
     strVal = strVal.toLowerCase().trim();
     if (strVal) {
       if (this.isTransparent(strVal)) {
@@ -282,19 +282,19 @@ Color.prototype = {
     }
     return false;
   },
-  setHue: function (h) {
+  setHue: function(h) {
     this.value.h = 1 - h;
   },
-  setSaturation: function (s) {
+  setSaturation: function(s) {
     this.value.s = s;
   },
-  setBrightness: function (b) {
+  setBrightness: function(b) {
     this.value.b = 1 - b;
   },
-  setAlpha: function (a) {
+  setAlpha: function(a) {
     this.value.a = Math.round((parseInt((1 - a) * 100, 10) / 100) * 100) / 100;
   },
-  toRGB: function (h, s, b, a) {
+  toRGB: function(h, s, b, a) {
     if (arguments.length === 0) {
       h = this.value.h;
       s = this.value.s;
@@ -321,7 +321,7 @@ Color.prototype = {
       a: a
     };
   },
-  toHex: function (ignoreFormat, h, s, b, a) {
+  toHex: function(ignoreFormat, h, s, b, a) {
     if (arguments.length <= 1) {
       h = this.value.h;
       s = this.value.s;
@@ -341,10 +341,10 @@ Color.prototype = {
     }
 
     var hexStr = prefix + (
-      (1 << 24) +
-      (parseInt(rgb.r) << 16) +
-      (parseInt(rgb.g) << 8) +
-      parseInt(rgb.b))
+        (1 << 24) +
+        (parseInt(rgb.r) << 16) +
+        (parseInt(rgb.g) << 8) +
+        parseInt(rgb.b))
       .toString(16)
       .slice(1);
 
@@ -353,7 +353,7 @@ Color.prototype = {
 
     return hexStr;
   },
-  toHSL: function (h, s, b, a) {
+  toHSL: function(h, s, b, a) {
     if (arguments.length === 0) {
       h = this.value.h;
       s = this.value.s;
@@ -380,7 +380,7 @@ Color.prototype = {
       a: isNaN(a) ? 0 : a
     };
   },
-  toAlias: function (r, g, b, a) {
+  toAlias: function(r, g, b, a) {
     var c, rgb = (arguments.length === 0) ? this.toHex(true) : this.toHex(true, r, g, b, a);
 
     // support predef. colors in non-hex format too, as defined in the alias itself
@@ -394,7 +394,7 @@ Color.prototype = {
     }
     return false;
   },
-  RGBtoHSB: function (r, g, b, a) {
+  RGBtoHSB: function(r, g, b, a) {
     r /= 255;
     g /= 255;
     b /= 255;
@@ -404,9 +404,9 @@ Color.prototype = {
     V = Math.max(r, g, b);
     C = V - Math.min(r, g, b);
     H = (C === 0 ? null :
-        V === r ? (g - b) / C :
-          V === g ? (b - r) / C + 2 :
-            (r - g) / C + 4
+      V === r ? (g - b) / C :
+      V === g ? (b - r) / C + 2 :
+      (r - g) / C + 4
     );
     H = ((H + 360) % 6) * 60 / 360;
     S = C === 0 ? 0 : C / V;
@@ -417,7 +417,7 @@ Color.prototype = {
       a: this._sanitizeNumber(a)
     };
   },
-  HueToRGB: function (p, q, h) {
+  HueToRGB: function(p, q, h) {
     if (h < 0) {
       h += 1;
     } else if (h > 1) {
@@ -433,7 +433,7 @@ Color.prototype = {
       return p;
     }
   },
-  HSLtoRGB: function (h, s, l, a) {
+  HSLtoRGB: function(h, s, l, a) {
     if (s < 0) {
       s = 0;
     }
@@ -459,7 +459,7 @@ Color.prototype = {
    * @param {String} strVal
    * @returns {Object} Object containing h,s,b,a,format properties or FALSE if failed to parse
    */
-  parse: function (strVal) {
+  parse: function(strVal) {
     if (typeof strVal !== 'string') {
       return this.fallbackValue;
     }
@@ -476,7 +476,7 @@ Color.prototype = {
       strVal = this.colors[strVal].toLowerCase().trim();
     }
 
-    $.each(this.stringParsers, function (i, parser) {
+    $.each(this.stringParsers, function(i, parser) {
       var match = parser.re.exec(strVal);
       values = match && parser.parse.apply(that, [match]);
       if (values) {
@@ -496,7 +496,7 @@ Color.prototype = {
     });
     return result;
   },
-  getValidFallbackFormat: function () {
+  getValidFallbackFormat: function() {
     var formats = [
       'rgba', 'rgb', 'hex', 'hsla', 'hsl'
     ];
@@ -516,56 +516,63 @@ Color.prototype = {
    * @param {boolean} [forceRawValue] Forces hashtag prefix when getting hex color (default: false)
    * @returns {String}
    */
-  toString: function (forceRawValue, format, translateAlias) {
+  toString: function(forceRawValue, format, translateAlias) {
     format = format || this.origFormat || this.fallbackFormat;
     translateAlias = translateAlias || false;
 
     var c = false;
 
     switch (format) {
-      case 'rgb': {
-        c = this.toRGB();
-        if (this.rgbaIsTransparent(c)) {
-          return 'transparent';
+      case 'rgb':
+        {
+          c = this.toRGB();
+          if (this.rgbaIsTransparent(c)) {
+            return 'transparent';
+          }
+          return 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')';
         }
-        return 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')';
-      }
         break;
-      case 'rgba': {
-        c = this.toRGB();
-        return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')';
-      }
-        break;
-      case 'hsl': {
-        c = this.toHSL();
-        return 'hsl(' + Math.round(c.h * 360) + ',' + Math.round(c.s * 100) + '%,' + Math.round(c.l * 100) + '%)';
-      }
-        break;
-      case 'hsla': {
-        c = this.toHSL();
-        return 'hsla(' + Math.round(c.h * 360) + ',' + Math.round(c.s * 100) + '%,' + Math.round(c.l * 100) + '%,' + c.a + ')';
-      }
-        break;
-      case 'hex': {
-        return this.toHex(forceRawValue);
-      }
-        break;
-      case 'alias': {
-        c = this.toAlias();
-
-        if (c === false) {
-          return this.toString(forceRawValue, this.getValidFallbackFormat());
+      case 'rgba':
+        {
+          c = this.toRGB();
+          return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')';
         }
-
-        if (translateAlias && !(c in Color.webColors) && (c in this.predefinedColors)) {
-          return this.predefinedColors[c];
+        break;
+      case 'hsl':
+        {
+          c = this.toHSL();
+          return 'hsl(' + Math.round(c.h * 360) + ',' + Math.round(c.s * 100) + '%,' + Math.round(c.l * 100) + '%)';
         }
+        break;
+      case 'hsla':
+        {
+          c = this.toHSL();
+          return 'hsla(' + Math.round(c.h * 360) + ',' + Math.round(c.s * 100) + '%,' + Math.round(c.l * 100) + '%,' + c.a + ')';
+        }
+        break;
+      case 'hex':
+        {
+          return this.toHex(forceRawValue);
+        }
+        break;
+      case 'alias':
+        {
+          c = this.toAlias();
 
-        return c;
-      }
-      default: {
-        return c;
-      }
+          if (c === false) {
+            return this.toString(forceRawValue, this.getValidFallbackFormat());
+          }
+
+          if (translateAlias && !(c in Color.webColors) && (c in this.predefinedColors)) {
+            return this.predefinedColors[c];
+          }
+
+          return c;
+        }
+      default:
+        {
+          return c;
+        }
         break;
     }
   },
@@ -575,7 +582,7 @@ Color.prototype = {
   stringParsers: [{
     re: /rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*?\)/,
     format: 'rgb',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         execResult[1],
         execResult[2],
@@ -586,7 +593,7 @@ Color.prototype = {
   }, {
     re: /rgb\(\s*(\d*(?:\.\d+)?)\%\s*,\s*(\d*(?:\.\d+)?)\%\s*,\s*(\d*(?:\.\d+)?)\%\s*?\)/,
     format: 'rgb',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         2.55 * execResult[1],
         2.55 * execResult[2],
@@ -597,7 +604,7 @@ Color.prototype = {
   }, {
     re: /rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d*(?:\.\d+)?)\s*)?\)/,
     format: 'rgba',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         execResult[1],
         execResult[2],
@@ -608,7 +615,7 @@ Color.prototype = {
   }, {
     re: /rgba\(\s*(\d*(?:\.\d+)?)\%\s*,\s*(\d*(?:\.\d+)?)\%\s*,\s*(\d*(?:\.\d+)?)\%\s*(?:,\s*(\d*(?:\.\d+)?)\s*)?\)/,
     format: 'rgba',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         2.55 * execResult[1],
         2.55 * execResult[2],
@@ -619,7 +626,7 @@ Color.prototype = {
   }, {
     re: /hsl\(\s*(\d*(?:\.\d+)?)\s*,\s*(\d*(?:\.\d+)?)\%\s*,\s*(\d*(?:\.\d+)?)\%\s*?\)/,
     format: 'hsl',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         execResult[1] / 360,
         execResult[2] / 100,
@@ -630,7 +637,7 @@ Color.prototype = {
   }, {
     re: /hsla\(\s*(\d*(?:\.\d+)?)\s*,\s*(\d*(?:\.\d+)?)\%\s*,\s*(\d*(?:\.\d+)?)\%\s*(?:,\s*(\d*(?:\.\d+)?)\s*)?\)/,
     format: 'hsla',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         execResult[1] / 360,
         execResult[2] / 100,
@@ -641,7 +648,7 @@ Color.prototype = {
   }, {
     re: /#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/,
     format: 'hex',
-    parse: function (execResult) {
+    parse: function(execResult) {
       return [
         parseInt(execResult[1], 16),
         parseInt(execResult[2], 16),
@@ -650,7 +657,7 @@ Color.prototype = {
       ];
     }
   }],
-  colorNameToHex: function (name) {
+  colorNameToHex: function(name) {
     if (typeof this.colors[name.toLowerCase()] !== 'undefined') {
       return this.colors[name.toLowerCase()];
     }

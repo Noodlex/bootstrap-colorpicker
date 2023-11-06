@@ -367,6 +367,9 @@
         .toString(16)
         .slice(1);
 
+      var alphaHex = Math.round(rgb.a * 255).toString(16);
+      hexStr += alphaHex.length === 1 ? '0' + alphaHex : alphaHex;
+
       return hexStr;
     },
     toHSL: function(h, s, b, a) {
@@ -414,6 +417,7 @@
       r /= 255;
       g /= 255;
       b /= 255;
+      a /= 255;
 
       var H, S, V, C;
       V = Math.max(r, g, b);
@@ -661,25 +665,14 @@
         ];
       }
     }, {
-      re: /#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/,
+      re: /#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/,
       format: 'hex',
       parse: function(execResult) {
         return [
           parseInt(execResult[1], 16),
           parseInt(execResult[2], 16),
           parseInt(execResult[3], 16),
-          1
-        ];
-      }
-    }, {
-      re: /#?([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/,
-      format: 'hex',
-      parse: function(execResult) {
-        return [
-          parseInt(execResult[1] + execResult[1], 16),
-          parseInt(execResult[2] + execResult[2], 16),
-          parseInt(execResult[3] + execResult[3], 16),
-          1
+          execResult.length === 5 ? (parseInt(execResult[4], 16) / 255) : 1
         ];
       }
     }],

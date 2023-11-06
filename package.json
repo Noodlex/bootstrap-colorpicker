@@ -24,6 +24,7 @@
     }
   ],
   "dependencies": {
+    "grunt-cli": "^1.4.3",
     "jquery": ">=1.10"
   },
   "scripts": {
