@@ -25,7 +25,7 @@ var Color = function(
     ) :
     null;
 
-  this.fallbackFormat = fallbackFormat ? fallbackFormat : 'rgba';
+  this.fallbackFormat = fallbackFormat ? fallbackFormat : 'hex';
 
   this.hexNumberSignPrefix = hexNumberSignPrefix === true;
 
@@ -507,7 +507,7 @@ Color.prototype = {
       return this.fallbackFormat;
     }
 
-    return 'rgba'; // By default, return a format that will not lose the alpha info
+    return 'hex'; // By default, return a format that will not lose the alpha info
   },
   /**
    *
