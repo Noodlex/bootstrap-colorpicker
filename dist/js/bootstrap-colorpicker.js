@@ -672,7 +672,7 @@
           parseInt(execResult[1], 16),
           parseInt(execResult[2], 16),
           parseInt(execResult[3], 16),
-          execResult.length === 5 ? parseInt(execResult[4], 16) : 1
+          execResult.length === 5 ? (parseInt(execResult[4], 16) / 255) : 1
         ];
       }
     }],
@@ -800,7 +800,7 @@
       $picker.addClass('colorpicker-horizontal');
     }
     if (
-      (['rgba', 'hsla', 'alias'].indexOf(this.format) !== -1) ||
+      (['rgba', 'hsla', 'alias', 'hexe'].indexOf(this.format) !== -1) ||
       this.options.format === false ||
       this.getValue() === 'transparent'
     ) {

@@ -48,7 +48,7 @@ var Colorpicker = function(element, options) {
     $picker.addClass('colorpicker-horizontal');
   }
   if (
-    (['rgba', 'hsla', 'alias'].indexOf(this.format) !== -1) ||
+    (['rgba', 'hsla', 'alias', 'hexe'].indexOf(this.format) !== -1) ||
     this.options.format === false ||
     this.getValue() === 'transparent'
   ) {
